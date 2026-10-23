@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CodeRipple | Change Impact Explorer</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand-mark">CR</div>
+    <div>
+      <h1>CodeRipple</h1>
+      <p>Understand what a code change might affect.</p>
+    </div>
+    <span class="status"><span class="dot"></span> LOCAL ANALYSIS</span>
+  </header>
+
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">SOURCE CODE INTELLIGENCE</p>
+      <h2>Every change creates a ripple.</h2>
+      <p class="hero-copy">Upload a Python project ZIP, choose a file you plan to change, and explore connected files that may be affected.</p>
+    </section>
+
+    <section class="panel upload-panel">
+      <div class="section-heading">
+        <div><span class="step">01</span><h3>Upload project</h3></div>
+        <span class="muted">Python · .zip · up to 10 MB</span>
+      </div>
+      <label class="dropzone" for="zipFile">
+        <span class="upload-icon">↑</span>
+        <strong id="fileLabel">Choose your project ZIP</strong>
+        <span class="muted">Only Python files are analysed. Your source stays on this local server.</span>
+        <input id="zipFile" type="file" accept=".zip,application/zip">
+      </label>
+      <div class="actions">
+        <button id="analyseBtn" class="primary" disabled>Analyse codebase <span>→</span></button>
+        <a class="sample-link" href="/sample.zip" id="sampleLink">Use sample project</a>
+      </div>
+      <p id="uploadMessage" class="message" role="status"></p>
+    </section>
+
+    <section id="workspace" class="workspace hidden">
+      <div class="stats">
+        <div class="stat panel"><span class="muted">Python files</span><strong id="fileCount">0</strong></div>
+        <div class="stat panel"><span class="muted">Dependencies found</span><strong id="edgeCount">0</strong></div>
+        <div class="stat panel"><span class="muted">Files potentially affected</span><strong id="impactCount">—</strong></div>
+      </div>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div><span class="step">02</span><h3>Simulate a change</h3></div>
+        </div>
+        <label for="changedFile" class="field-label">Which file are you planning to change?</label>
+        <div class="select-row">
+          <select id="changedFile"></select>
+          <button id="impactBtn" class="primary">Find impact →</button>
+        </div>
+        <p class="muted small">The analysis follows known imports and function-name relationships. Review the evidence before changing production code.</p>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading">
+          <div><span class="step">03</span><h3>Impact report</h3></div>
+          <span id="reportBadge" class="badge">Waiting for selection</span>
+        </div>
+        <div id="emptyState" class="empty-state">
+          <div class="empty-symbol">⌁</div>
+          <strong>Your impact report will appear here</strong>
+          <p>Choose a file above and run the analysis.</p>
+        </div>
+        <div id="resultsArea" class="hidden">
+          <div class="changed-file"><span class="muted">Selected file</span><strong id="selectedName"></strong></div>
+          <div id="resultsList" class="results-list"></div>
+          <p id="reportNote" class="notice"></p>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="section-heading"><div><span class="step">04</span><h3>Dependency graph</h3></div></div>
+        <p class="muted small">Each arrow points from a file to a dependency it imports or calls. This is a simplified view.</p>
+        <div id="graphView" class="graph-view"></div>
+      </section>
+    </section>
+    <footer>CodeRipple · Student project prototype · Static analysis, not a guarantee of runtime failure</footer>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
